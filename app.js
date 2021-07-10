@@ -6,10 +6,12 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-const date = new Date();
+const date = require(__dirname + "/date.js");
+// const date = new Date();
 
-currentDate = date.toLocaleDateString("en-US");
+// currentDate = date.toLocaleDateString("en-US");
 
+currentDate = date();
 var item = ["bUY fOOD"];
 
 app.get("/", function (req, res) {
