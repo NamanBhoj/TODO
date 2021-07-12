@@ -32,22 +32,47 @@ const item2 = new Item({ name: "Apple" });
 const item3 = new Item({ name: "Orange" });
 
 const defaultList = [item1, item2, item3];
-console.log(defaultList);
-
-Item.insertMany(defaultList, function (err) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Succesful insertion");
-  }
-});
-
+// console.log(defaultList);
+//GET METHODS
 app.get("/", function (req, res) {
-  res.render("index.ejs", { currentDate: currentDate, item: defaultList });
+  Item.find({}, function (err, founditems) {
+    if (founditems.length === 0) {
+      Item.insertMany(defaultList, function (err) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("Succesful insertion");
+        }
+      });
+      res.redirect("/");
+    } else {
+      res.render("index", { currentDate: currentDate, item: founditems });
+    }
+  });
 });
 
+//POST METHODS
 app.post("/", function (req, res) {
-  item.push(req.body.addtolist);
+  const itemName = req.body.addtolist;
+
+  const item = new Item({ name: itemName });
+
+  item.save();
+
   res.redirect("/");
+});
+
+// DELETE USING POST METHOD
+app.post("/delete", function (req, res) {
+  const deleteItemId = req.body.checkbox;
+
+  Item.findByIdAndDelete(deleteItemId, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Success");
+      res.redirect("/");
+    }
+  });
 });
 module.exports = app;
