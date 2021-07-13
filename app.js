@@ -3,10 +3,13 @@ const app = express();
 const bodyParser = require("body-parser");
 // MONGOOSE SETUP
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/todo_DB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  "mongodb+srv://NamanBhoj:test123@cluster0.dzgkf.mongodb.net/todo_DB",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 //VIEW ENGINE
 app.set("view engine", "ejs");
 
