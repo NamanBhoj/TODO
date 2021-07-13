@@ -27,7 +27,7 @@ const itemSchema = new mongoose.Schema({ name: String });
 //compile the schema to make a model aka collection
 const Item = mongoose.model("Item", itemSchema);
 
-const item1 = new Item({ name: "Banana" });
+const item1 = new Item({ name: "This list will always have atleast one item" });
 const item2 = new Item({ name: "Apple" });
 const item3 = new Item({ name: "Orange" });
 
